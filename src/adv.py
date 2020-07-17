@@ -1,4 +1,6 @@
 from room import Room
+from player import Player
+import textwrap
 
 # Declare all the rooms
 
@@ -39,8 +41,9 @@ room['treasure'].s_to = room['narrow']
 
 # Make a new player object that is currently in the 'outside' room.
 
+
+
 # Write a loop that:
-#
 # * Prints the current room name
 # * Prints the current description (the textwrap module might be useful here).
 # * Waits for user input and decides what to do.
@@ -49,3 +52,40 @@ room['treasure'].s_to = room['narrow']
 # Print an error message if the movement isn't allowed.
 #
 # If the user enters "q", quit the game.
+
+player = Player("Austin", room["outside"])
+room["foyer"].items = ["machete", "sword"]
+
+while True:
+    print("\n")
+    print(player.location)
+    userDirection = input("\nEnter (n), (s), (e), (w), (d), (i) for inventory")
+    userAction = input("\nEnter take [item], or drop [item]").split()
+    if userDirection:
+        if userDirection == "q":
+            playerTurn = False
+        elif userDirection == "n":
+            player.move(userDirection)
+        elif userDirection == "e":
+            player.move(userDirection)
+        elif userDirection == "s":
+            player.move(userDirection)
+        elif userDirection == "w":
+            player.move(userDirection)
+        elif userDirection == "i":
+            print(player.inventory)
+    if userAction:
+        if "take" in userAction:
+            for item in player.location.items:
+                if item == userAction[1]:
+                    player.takeItem(item)
+                    print(player.inventory)
+
+        if "drop" in userAction:
+            for item in player.location.items:
+                if item == userAction[1]:
+                    player.dropItem(item)
+                    print(player.inventory)
+
+
+
