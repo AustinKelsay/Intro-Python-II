@@ -1,5 +1,6 @@
 from room import Room
 from player import Player
+from item import Item
 import textwrap
 
 # Declare all the rooms
@@ -52,9 +53,11 @@ room['treasure'].s_to = room['narrow']
 # Print an error message if the movement isn't allowed.
 #
 # If the user enters "q", quit the game.
+sword = Item('Sword', "A rusty dungeon longsword")
+machete = Item('Machete', 'A tool that can double as a weapon')
 
 player = Player("Austin", room["outside"])
-room["foyer"].items = ["machete", "sword"]
+room["foyer"].items = [f"{sword.name}", f"{machete.name}"]
 
 while True:
     print("\n")
@@ -78,14 +81,14 @@ while True:
         if "take" in userAction:
             for item in player.location.items:
                 if item == userAction[1]:
-                    player.takeItem(item)
-                    print(player.inventory)
+                    player.take_item(item)
+                    player.on_take(item)
 
         if "drop" in userAction:
             for item in player.location.items:
                 if item == userAction[1]:
-                    player.dropItem(item)
-                    print(player.inventory)
+                    player.drop_item(item)
+                    player.on_drop(item)
 
 
 

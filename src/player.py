@@ -7,16 +7,23 @@ class Player:
         self.name = name
         self.location = location
         self.inventory = []
+
     def move(self, direction):
         if hasattr(self.location, f'{direction}_to'):
             self.location = getattr(self.location, f'{direction}_to')
         else:
             print("You can't go that direction")
 
-    def takeItem(self, item):
+    def take_item(self, item):
         self.inventory.append(item)
         print(f'Inventory: {self.inventory}')
 
-    def dropItem(self, item):
+    def drop_item(self, item):
         self.inventory.remove(item)
         print(f'Inventory: {self.inventory}')
+
+    def on_take(self, item):
+        print(f"You have picked up {item}")
+
+    def on_drop(self, item):
+        print(f"You have dropped {item}")
